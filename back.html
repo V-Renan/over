@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão "Não" que se Move</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #pergunta {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px; /* Espaçamento entre os botões */
+        }
+
+        .botao {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #imagem {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #mensagemAgradecimento {
+            display: none;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #2ecc71;
+        }
+
+        #imagemAgradecimento {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <img id="imagem" src="https://media1.tenor.com/m/h9UfXaa2JsEAAAAC/ronaldinho-quer-namorar-comigo.gif" alt="Quer namorar comigo? by: mano ronaldinho">
+
+    <div class="botoes">
+        <button class="botao" id="sim">Sim</button>
+        <button class="botao" id="nao">Não</button>
+    </div>
+
+    <div id="mensagemAgradecimento">
+        <p>Obrigado por gostar do nosso site! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        <img id="imagemAgradecimento" src="https://via.placeholder.com/300" alt="Imagem de agradecimento">
+    </div>
+
+    <script>
+        const botaoSim = document.getElementById('sim');
+        const botaoNao = document.getElementById('nao');
+        const mensagemAgradecimento = document.getElementById('mensagemAgradecimento');
+
+        botaoSim.addEventListener('click', function() {
+            // Exibe a mensagem de agradecimento e oculta os elementos anteriores
+            mensagemAgradecimento.style.display = 'block';
+            document.getElementById('pergunta').style.display = 'none';
+            document.querySelector('.botoes').style.display = 'none';
+            document.getElementById('imagem').style.display = 'none';
+        });
+
+        botaoNao.addEventListener('mousemove', function() {
+            // Gera uma nova posição dentro de um intervalo maior
+            const x = (Math.random() - 0.5) * 400; // Movimento horizontal aleatório
+            const y = (Math.random() - 0.5) * 400; // Movimento vertical aleatório
+
+            // Aplica a nova posição com transform
+            botaoNao.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+</html>

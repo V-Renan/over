@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Conhecimento</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4534db;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .pergunta {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .opcoes label {
+            display: block;
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #e9f5fc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .opcoes label:hover {
+            background-color: #d4ecf7;
+        }
+        .opcoes input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        #mensagem {
+            color: #e74c3c;
+            font-weight: bold;
+            display: none;
+            text-align: center;
+        }
+        #verificar {
+            background-color: #2ecc71;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #verificar:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pergunta">
+        <p>5. Qual série eu comecei a assistir por sua causa? </p>
+        <div class="opcoes">
+            <label><input type="radio" name="pergunta1" value="errado"> Pretty Little Liars. </label>
+            <label><input type="radio" name="pergunta1" value="errado"> The Vampire Dies. </label>
+            <label><input type="radio" name="pergunta1" value="correto"> Teen Wolf. </label>
+        </div>
+    </div>
+
+    <div class="pergunta">
+        <p>6. Top 3 músicas que eramos viciados em 2020? </p>
+        <div class="opcoes">
+            <label><input type="radio" name="pergunta2" value="errado"> Piada, Ali Gatie - It's You, Cheirosa. </label>
+            <label><input type="radio" name="pergunta2" value="correto"> Serenata, Quarta Cadeira, Três Batidas. </label>
+            <label><input type="radio" name="pergunta2" value="errado">  Até que Durou, Arranhão, Guerra Fria. </label>
+        </div>
+    </div>
+
+    <div class="pergunta">
+        <p>7. Qual a música que nos marcou tempos atrás e qual nos descreve atualmente? kskskksksk </p>
+        <div class="opcoes">
+            <label><input type="radio" name="pergunta3" value="errado"> Gnash - I hate u, Deixa ela saber. (essa foi de meme, assumo a culpa ksksksks)</label>
+            <label><input type="radio" name="pergunta3" value="correto"> Can't Take My Eyes Off You, Jorge e Mateus - Nocaute. </label>
+        </div>
+    </div>
+
+    <button id="verificar">Verificar Respostas</button>
+    <p id="mensagem">Aqui foi em homenagem a você que é linguaruda demais</p>
+
+    <script>
+        document.getElementById('verificar').addEventListener('click', function() {
+            // Verifica se todas as respostas estão corretas
+            const respostasCorretas = [
+                document.querySelector('input[name="pergunta1"]:checked')?.value === "correto",
+                document.querySelector('input[name="pergunta2"]:checked')?.value === "correto",
+                document.querySelector('input[name="pergunta3"]:checked')?.value === "correto"
+            ];
+
+            // Verifica se todas as respostas estão corretas
+            const todasCorretas = respostasCorretas.every(resposta => resposta);
+
+            if (todasCorretas) {
+                // Redireciona para a terceira pag.
+                window.location.href = "index5.html";
+            } else {
+                // Exibe a mensagem de erro
+                document.getElementById('mensagem').style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>
