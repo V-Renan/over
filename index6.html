@@ -70,34 +70,34 @@
 <body>
 
     <div class="pergunta">
-        <p>8. Qual tipo de rolê combina mais com a gente? </p>
+        <p>11. Qual era o meu curso na facul? </p>
         <div class="opcoes">
-            <label><input type="radio" name="pergunta1" value="errado"> Praia/Piscina. </label>
-            <label><input type="radio" name="pergunta1" value="correto"> Cinema e Filme/Série em casa. </label>
-            <label><input type="radio" name="pergunta1" value="correto"> Só precisamos estar juntos e qualquer coisa funciona. </label>
+            <label><input type="radio" name="pergunta1" value="errado"> Engenharia da Computação. </label>
+            <label><input type="radio" name="pergunta1" value="errado"> Ciências da Computação. </label>
+            <label><input type="radio" name="pergunta1" value="correto"> Engenharia de Software. </label>
         </div>
     </div>
 
     <div class="pergunta">
-        <p>9. O que você faz e eu falo que me divirto pra caralho? </p>
+        <p>12. Como escrever a palavra "serve" da melhor forma? </p>
         <div class="opcoes">
-            <label><input type="radio" name="pergunta2" value="errado"> Dicção fodida. </label>
-            <label><input type="radio" name="pergunta2" value="correto"> Vídeo comendo. </label>
-            <label><input type="radio" name="pergunta2" value="errado">  Nudes em momentos inesperados. </label>
+            <label><input type="radio" name="pergunta2" value="errado"> Serve. </label>
+            <label><input type="radio" name="pergunta2" value="correto"> Seve. </label>
+            <label><input type="radio" name="pergunta2" value="errado">  Server. </label>
         </div>
     </div>
 
     <div class="pergunta">
-        <p>10. Para onde eu viajaria? </p>
+        <p>13. Carro dos sonhos? </p>
         <div class="opcoes">
-            <label><input type="radio" name="pergunta3" value="correto"> Pra dentro do teu priquito. </label>
-            <label><input type="radio" name="pergunta3" value="errado"> Canadá </label>
-            <label><input type="radio" name="pergunta3" value="errado"> Noruega </label>
+            <label><input type="radio" name="pergunta3" value="correto"> Golf GTI. </label>
+            <label><input type="radio" name="pergunta3" value="correto"> Impala 67. </label>
+            <label><input type="radio" name="pergunta3" value="errado"> Fusca com o maior capô possível. </label>
         </div>
     </div>
 
     <button id="verificar">Verificar Respostas</button>
-    <p id="mensagem">Se errou aqui é completamente maluca!</p>
+    <p id="mensagem">Tudo bem, errar aqui tem perdão</p>
 
     <script>
         document.getElementById('verificar').addEventListener('click', function() {
@@ -113,7 +113,7 @@
 
             if (todasCorretas) {
                 // Redireciona para a terceira pag.
-                window.location.href = "index6.html";
+                window.location.href = "index7.html";
             } else {
                 // Exibe a mensagem de erro
                 document.getElementById('mensagem').style.display = 'block';
