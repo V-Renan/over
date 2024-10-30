@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>priquito abrido</title>
+    <title>priquitinho</title>
     <script>
-        if (window.innerWidth < 768) { // Aqui, 768px representa uma largura típica para mobile
-            alert("Tentou abrir pelo celular né pilantra ");
-            // Se quiser redirecionar para outra página, use:
-            // window.location.href = "sua_pagina_para_mobile.html";
+        // Detecta dispositivos móveis e redireciona para golpe.html se a largura for menor que 768px
+        if (window.innerWidth < 768) {
+            window.location.href = "golpe.html";
         }
     </script>
-    
     <style>
         body {
             display: flex;
@@ -123,7 +121,7 @@
 
             if (todasCorretas) {
                 // Redireciona para a segunda pag.
-                window.location.href = "index2.html";
+                window.location.href = "";
             } else {
                 // Exibe a mensagem de erro
                 document.getElementById('mensagem').style.display = 'block';
