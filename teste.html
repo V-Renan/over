@@ -3,131 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>priquitinho</title>
-    <script>
-        // Detecta dispositivos móveis e redireciona para golpe.html se a largura for menor que 768px
-        if (window.innerWidth < 768) {
-            window.location.href = "golpe.html";
-        }
-    </script>
+    <title>Mensagens Aleatórias com Botões</title>
     <style>
         body {
             display: flex;
             flex-direction: column;
+            background-image: url(https://i.etsystatic.com/37579217/r/il/4e791c/4401654738/il_794xN.4401654738_1osu.jpg);
+            justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 20px;
+            height: 100vh;
+            background-color: rgb(0, 0, 0);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
         }
-        h1 {
-            color: #4534db;
-            font-size: 2em;
+
+        #pergunta {
+            font-size: 24px;
             margin-bottom: 20px;
         }
-        .pergunta {
-            background-color: #ffffff;
-            border: 2px solid #3498db;
-            border-radius: 8px;
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
         }
-        .opcoes label {
-            display: block;
-            padding: 10px;
-            margin-bottom: 8px;
-            background-color: #e9f5fc;
+
+        .botao {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2b029c;
+            color: white;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
-        .opcoes label:hover {
-            background-color: #d4ecf7;
+
+        #imagem {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
         }
-        .opcoes input[type="radio"] {
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        #mensagem {
-            color: #e74c3c;
-            font-weight: bold;
-            display: none;
-            text-align: center;
-        }
-        #verificar {
-            background-color: #2ecc71;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #verificar:hover {
-            background-color: #27ae60;
+
+        .mensagem {
+            position: absolute;
+            padding: 15px;
+            color: rgb(255, 255, 255);
+            border-radius: 20px;
+            font-size: 16px;
+            max-width: 220px;
+            word-wrap: break-word;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 1s;
         }
     </style>
 </head>
 <body>
 
-    <h1>O quanto você me conhece nenis?</h1>
+    <img id="imagem" src="https://media1.tenor.com/m/h9UfXaa2JsEAAAAC/ronaldinho-quer-namorar-comigo.gif" alt="Quer namorar comigo? by: mano ronaldinho" width="468" height="371">
 
-    <div class="pergunta">
-        <p>1. Qual é o meu episódio favorito de Supernatural?</p>
-        <div class="opcoes">
-            <label><input type="radio" name="pergunta1" value="errado"> Febre Amarela S06xE04 </label>
-            <label><input type="radio" name="pergunta1" value="errado"> The French Mistake S06E15</label>
-            <label><input type="radio" name="pergunta1" value="correto"> Local Misterioso S03xE11 </label>
-        </div>
+    <div class="botoes">
+        <button class="botao" id="sim">Sim</button>
+        <button class="botao" id="nao">Não</button>
     </div>
-
-    <div class="pergunta">
-        <p>2. Qual é o meu filme favorito?</p>
-        <div class="opcoes">
-            <label><input type="radio" name="pergunta2" value="errado"> Um Lugar Silencioso </label>
-            <label><input type="radio" name="pergunta2" value="correto"> Vingadores - Guerra Infinita</label>
-            <label><input type="radio" name="pergunta2" value="errado"> Interestelar </label>
-        </div>
-    </div>
-
-    <div class="pergunta">
-        <p>3. Qual a ordem correta do meu nome?</p>
-        <div class="opcoes">
-            <label><input type="radio" name="pergunta3" value="correto"> Victor Renan Moura da Silva</label>
-            <label><input type="radio" name="pergunta3" value="errado"> Victor Renan da Silva Moura</label>
-            <label><input type="radio" name="pergunta3" value="errado"> Victor Rennan Moura da Silva</label>
-        </div>
-    </div>
-
-    <button id="verificar">Verificar Respostas</button>
-    <p id="mensagem">Errou bonitona, tenta de novo!</p>
 
     <script>
-        document.getElementById('verificar').addEventListener('click', function() {
-            // Verifica se todas as respostas estão corretas
-            const respostasCorretas = [
-                document.querySelector('input[name="pergunta1"]:checked')?.value === "correto",
-                document.querySelector('input[name="pergunta2"]:checked')?.value === "correto",
-                document.querySelector('input[name="pergunta3"]:checked')?.value === "correto"
-            ];
+        // Recupera o número de cliques "Sim" salvos no localStorage
+        let contadorSim = localStorage.getItem('contadorSim') || 0;
 
-            // Verifica se todas as respostas estão corretas
-            const todasCorretas = respostasCorretas.every(resposta => resposta);
+        // Função para incrementar e armazenar o contador "Sim"
+        function incrementarContadorSim() {
+            contadorSim++;
+            localStorage.setItem('contadorSim', contadorSim); // Salva no localStorage
+        }
 
-            if (todasCorretas) {
-                // Redireciona para a segunda pag.
-                window.location.href = "";
-            } else {
-                // Exibe a mensagem de erro
-                document.getElementById('mensagem').style.display = 'block';
-            }
+        const frases = [
+            "Um dia te levo comigo e de saudade suas eu não choro mais!",
+            "O que tem por trás desse sorriso que me deixa fissurado em você?!",
+            "Pra todo mal da minha vida, pra curar qualquer ferida, meu remédio é VOCÊ <3",
+            "Me vi tão feliz, num amor que pra mim era sonho!!!!",
+            "O mundo girando e a gente se esbarrando outra vez...",
+            "O tempo passou a vida mudou, mas eu continuo seu!!!!!!!!!!",
+            "A vida é mais colorida com você <3 <3",
+            "Taca a xereca na minha boca hihihi",
+            "eu quero ser seu homem e te fazer amada, amar, amar você até você se amar e me amar.",
+            "Que não reste duvidas de que eu te amo!",
+            "TE AMO TE AMO TE AMO TE AMO",
+            "Nunca vou me cansar de te amar",
+            "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk.",
+            "Minhas melhores lembranças são com você!",
+            "Você é a minha Âncora",
+            "Você é a mulher da minha vida!",
+            "Te amo com toda minha alma.",
+            "To me divertindo fazendo isso aqui na esperança de que vai funcionar kkkkkkkkkkkkkkkkkkkkk",
+            "Você é a metade da minha cebola.",
+            "Eu te prometo não prometer nada, também prometo não te cobrar nada..."
+        ];
+
+        const posicoesOcupadas = [];
+
+        function criarMensagem() {
+            const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+            const mensagem = document.createElement('div');
+            mensagem.className = 'mensagem';
+            mensagem.textContent = fraseAleatoria;
+
+            const larguraMensagem = 250;
+            const alturaMensagem = 150;
+            let posX, posY;
+
+            const gifHeight = 371;
+            const gifWidth = 468;
+            const gifOffset = 20;
+            const limiteInferior = gifHeight + gifOffset;
+            const limiteSuperior = window.innerHeight - gifOffset - 50;
+
+            let tentativas = 0;
+            const maxTentativas = 20;
+
+            do {
+                posX = Math.random() * (window.innerWidth - larguraMensagem);
+                posY = Math.random() * (window.innerHeight - alturaMensagem);
+
+                if (posY > limiteInferior && posY < limiteSuperior) {
+                    posY = Math.random() * (window.innerHeight - alturaMensagem - gifHeight - gifOffset) + (gifHeight + gifOffset);
+                }
+
+                if (posY < gifOffset) {
+                    posY += gifOffset;
+                }
+
+                const botoesHeight = 50;
+                if (posY + alturaMensagem > window.innerHeight - botoesHeight - gifOffset) {
+                    posY = window.innerHeight - botoesHeight - gifOffset - alturaMensagem;
+                }
+
+                tentativas++;
+            } while (isOverlapping(posX, posY, larguraMensagem, alturaMensagem) && tentativas < maxTentativas);
+
+            mensagem.style.left = `${posX}px`;
+            mensagem.style.top = `${posY}px`;
+            document.body.appendChild(mensagem);
+
+            setTimeout(() => {
+                mensagem.style.opacity = 1;
+            }, 50);
+
+            setTimeout(() => {
+                mensagem.style.opacity = 0;
+                setTimeout(() => {
+                    mensagem.remove();
+                }, 1000);
+            }, 2000);
+        }
+
+        function isOverlapping(x, y, largura, altura) {
+            return posicoesOcupadas.some(pos => {
+                return (
+                    x < pos.x + largura &&
+                    x + largura > pos.x &&
+                    y < pos.y + altura &&
+                    y + altura > pos.y
+                );
+            });
+        }
+
+        setInterval(() => {
+            criarMensagem();
+            posicoesOcupadas.push({ x: posX, y: posY });
+        }, 1000);
+
+        const botaoSim = document.getElementById('sim');
+        const botaoNao = document.getElementById('nao');
+
+        botaoSim.addEventListener('click', function() {
+            incrementarContadorSim(); // Incrementa o contador ao clicar "Sim"
+            window.location.href = 'final.html';
+        });
+
+        botaoNao.addEventListener('mousemove', function() {
+            const x = (Math.random() - 0.5) * 400;
+            const y = (Math.random() - 0.5) * 400;
+            botaoNao.style.transform = `translate(${x}px, ${y}px)`;
         });
     </script>
-
 </body>
 </html>
