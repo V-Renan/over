@@ -8,7 +8,6 @@
         body {
             display: flex;
             flex-direction: column;
-            background-image: url(https://i.etsystatic.com/37579217/r/il/4e791c/4401654738/il_794xN.4401654738_1osu.jpg);
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -21,6 +20,7 @@
         #pergunta {
             font-size: 24px;
             margin-bottom: 20px;
+            color: white; /* Cor do texto da pergunta */
         }
 
         .botoes {
@@ -63,111 +63,61 @@
 </head>
 <body>
 
-    <img id="imagem" src="https://media1.tenor.com/m/h9UfXaa2JsEAAAAC/ronaldinho-quer-namorar-comigo.gif" alt="Quer namorar comigo? by: mano ronaldinho" width="468" height="371">
-
+    <div id="pergunta">Cuzinho hoje????</div>
     <div class="botoes">
         <button class="botao" id="sim">Sim</button>
         <button class="botao" id="nao">Não</button>
     </div>
 
     <script>
-        const frases = [
-            "Um dia te levo comigo e de saudade suas eu não choro mais!",
-            "O que tem por trás desse sorriso que me deixa fissurado em você?!.",
-            "Pra todo mal da minha vida, pra curar qualquer ferida, meu remédio é VOCÊ <3",
-            "Me vi tão feliz, num amor que pra mim era sonho!!!!",
-            "O mundo girando e a gente se esbarrando outra vez...",
-            "O tempo passou a vida mudou, mas eu continuo seu!!!!!!!!!!",
-            "A vida é mais colorida com você <3 <3",
-            "Taca a xereca na minha boca hihihi",
-            "eu quero ser seu homem e te fazer amada, amar, amar você até você se amar e me amar.",
-            "Que não reste duvidas de que eu te amo!",
-            "TE AMO TE AMO TE AMO TE AMO",
-            "Nunca vou me cansar de te amar",
-            "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk.",
-            "Minhas melhores lembranças são com você!",
-            "Você é a minha Âncora",
-            "Você é a mulher da minha vida!",
-            "Te amo com toda minha alma.",
-            "To me divertindo fazendo isso aqui na esperança de que vai funcionar kkkkkkkkkkkkkkkkkkkkk",
-            "Você é a metade da minha cebola.",
-            "Eu te prometo não prometer nada, também prometo não te cobrar nada..."
-        ];
-
         const posicoesOcupadas = [];
 
         function criarMensagem() {
-            // Seleciona uma frase aleatória
             const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
-
-            // Cria um elemento de mensagem
             const mensagem = document.createElement('div');
             mensagem.className = 'mensagem';
             mensagem.textContent = fraseAleatoria;
 
-            // Define uma posição aleatória na tela
-            const larguraMensagem = 250; // Largura da mensagem
-            const alturaMensagem = 150;   // Altura da mensagem
+            const larguraMensagem = 250;
+            const alturaMensagem = 150;
             let posX, posY;
+            const gifOffset = 20;
 
-            // Ajuste para não cobrir o GIF
-            const gifHeight = 371; // Altura do GIF
-            const gifWidth = 468;  // Largura do GIF
-            const gifOffset = 20;  // Margem de segurança para não cobrir o GIF
+            const limiteInferior = gifOffset;
+            const limiteSuperior = window.innerHeight - gifOffset - 50;
 
-            // Limites para evitar a área central
-            const limiteInferior = gifHeight + gifOffset; // Abaixo do GIF
-            const limiteSuperior = window.innerHeight - gifOffset - 50; // Acima da área dos botões
-
-            let tentativas = 0; // Contador de tentativas para encontrar uma posição válida
-            const maxTentativas = 20; // Limite de tentativas para evitar loops infinitos
+            let tentativas = 0;
+            const maxTentativas = 20;
 
             do {
                 posX = Math.random() * (window.innerWidth - larguraMensagem);
                 posY = Math.random() * (window.innerHeight - alturaMensagem);
 
-                // Ajusta a posição Y se estiver na área central
                 if (posY > limiteInferior && posY < limiteSuperior) {
-                    posY = Math.random() * (window.innerHeight - alturaMensagem - gifHeight - gifOffset) + (gifHeight + gifOffset); // Acima do GIF
-                }
-
-                // Ajusta a posição Y se estiver muito perto da borda superior
-                if (posY < gifOffset) {
-                    posY += gifOffset; // Mova para baixo se estiver muito próxima do topo
-                }
-
-                // Ajusta a posição Y se estiver muito perto da área dos botões
-                const botoesHeight = 50; // Altura aproximada dos botões
-                if (posY + alturaMensagem > window.innerHeight - botoesHeight - gifOffset) {
-                    posY = window.innerHeight - botoesHeight - gifOffset - alturaMensagem; // Ajusta a altura
+                    posY = Math.random() * (window.innerHeight - alturaMensagem - gifOffset) + gifOffset;
                 }
 
                 tentativas++;
             } while (isOverlapping(posX, posY, larguraMensagem, alturaMensagem) && tentativas < maxTentativas);
 
-            // Adiciona a nova posição
             mensagem.style.left = `${posX}px`;
             mensagem.style.top = `${posY}px`;
 
-            // Adiciona a mensagem ao corpo
             document.body.appendChild(mensagem);
 
-            // Mostra a mensagem
             setTimeout(() => {
-                mensagem.style.opacity = 1; // Aumenta a opacidade
+                mensagem.style.opacity = 1;
             }, 50);
 
-            // Remove a mensagem após 2 segundos
             setTimeout(() => {
-                mensagem.style.opacity = 0; // Diminui a opacidade
+                mensagem.style.opacity = 0;
                 setTimeout(() => {
-                    mensagem.remove(); // Remove do DOM
-                }, 1000); // Espera 1 segundo para garantir que a animação de opacidade termine
-            }, 2000); // Alterado para 2000 milissegundos (2 segundos)
+                    mensagem.remove();
+                }, 1000);
+            }, 2000);
         }
 
         function isOverlapping(x, y, largura, altura) {
-            // Verifica se a nova posição colide com alguma posição ocupada
             return posicoesOcupadas.some(pos => {
                 return (
                     x < pos.x + largura &&
@@ -178,26 +128,22 @@
             });
         }
 
-        // Cria uma nova mensagem a cada 1000 milissegundos (1 segundo)
         setInterval(() => {
             criarMensagem();
             posicoesOcupadas.push({ x: posX, y: posY });
         }, 1000);
 
-        // Eventos dos botões
         const botaoSim = document.getElementById('sim');
         const botaoNao = document.getElementById('nao');
 
         botaoSim.addEventListener('click', function() {
-            window.location.href = 'f';
+            window.location.href = 'https://www.youtube.com/watch?v=-dy1uuJa-vw';
         });
 
         botaoNao.addEventListener('mousemove', function() {
-            // Gera uma nova posição dentro de um intervalo maior
-            const x = (Math.random() - 0.5) * 400; // Movimento horizontal aleatório
-            const y = (Math.random() - 0.5) * 400; // Movimento vertical aleatório
+            const x = (Math.random() - 0.5) * 400;
+            const y = (Math.random() - 0.5) * 400;
 
-            // Aplica a nova posição com transform
             botaoNao.style.transform = `translate(${x}px, ${y}px)`;
         });
     </script>
